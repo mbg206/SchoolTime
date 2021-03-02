@@ -3,9 +3,10 @@
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 <style>
-body {
+body, select {
   font-family: 'Montserrat', sans-serif;
   text-align: center;
+  font-size: 32px;
 }
 h1 {
   font-size:128px;
@@ -13,6 +14,16 @@ h1 {
 
 h2 {
   font-size: 32px;
+}
+#bottomBar {
+  background-color: black;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  text-align: left;
+  padding: 8px;
 }
 </style>
 </head>
@@ -23,6 +34,28 @@ h2 {
 <h2 id="countdown">Loading...</h2>
 <script>
 const woodPeriods = [
+{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 0, 0, 0)},
+{name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 25, 0, 0)},
+{name: "1st Period", time: new Date(2000, 1, 1, 9, 28, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 12, 0, 0)},
+{name: "2nd Period", time: new Date(2000, 1, 1, 10, 14, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 57, 0, 0)},
+{name: "Verkstad", time: new Date(2000, 1, 1, 11, 0, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 11, 30, 0, 0)},
+{name: "3rd Period", time: new Date(2000, 1, 1, 11, 33, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 12, 16, 0, 0)},
+{name: "4th Period", time: new Date(2000, 1, 1, 12, 19, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 13, 39, 0, 0)},
+{name: "5th Period", time: new Date(2000, 1, 1, 13, 42, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 14, 26, 0, 0)},
+{name: "6th Period", time: new Date(2000, 1, 1, 14, 29, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 15, 13, 0, 0)},
+{name: "7th Period", time: new Date(2000, 1, 1, 15, 16, 0, 0)},
+{name: "School has ended.", time: new Date(2000, 1, 1, 16, 0, 0, 0)}
+];
+const northBlocks = [
 {name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 9, 0, 0, 0)},
 {name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
@@ -75,8 +108,13 @@ function setTime() {
   month = monthName(month);
   document.getElementById('time').innerHTML = hour + ":" + min + ":" + sec + " " + ampm;
   document.getElementById('date').innerHTML = month + " " + day + ", " + year;
-  document.getElementById('countdown').innerHTML = "Time until " + woodPeriods[getCurrentEvent(woodPeriods, timeNoDate) + 1].name + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
   document.getElementById('period').innerHTML = woodPeriods[getCurrentEvent(woodPeriods, timeNoDate)].name;
+  if (timeDifference.getHours() > 18) {
+  document.getElementById('countdown').innerHTML = "Time until " + woodPeriods[getCurrentEvent(woodPeriods, timeNoDate) + 1].name + " - " + timeDifference.getHours() - 18 + ":" + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
+  }
+  else {
+  document.getElementById('countdown').innerHTML = "Time until " + woodPeriods[getCurrentEvent(woodPeriods, timeNoDate) + 1].name + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
+  }
   setTimeout(setTime, 250);
 }
 function fixTime(i) {
