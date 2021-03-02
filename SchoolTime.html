@@ -19,33 +19,74 @@ h2 {
 <body onload="load()">
 <h1 id="time">Loading...</h1>
 <h2 id="date">Loading...</h2>
+<h2 id="period">Loading...</h2>
+<h2 id="countdown">Loading...</h2>
 <script>
+const woodPeriods = [
+{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 0, 0, 0)},
+{name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 25, 0, 0)},
+{name: "1st Period", time: new Date(2000, 1, 1, 9, 28, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 12, 0, 0)},
+{name: "2nd Period", time: new Date(2000, 1, 1, 10, 14, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 57, 0, 0)},
+{name: "Verkstad", time: new Date(2000, 1, 1, 11, 0, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 11, 30, 0, 0)},
+{name: "3rd Period", time: new Date(2000, 1, 1, 11, 33, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 12, 16, 0, 0)},
+{name: "4th Period", time: new Date(2000, 1, 1, 12, 19, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 13, 39, 0, 0)},
+{name: "5th Period", time: new Date(2000, 1, 1, 13, 42, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 14, 26, 0, 0)},
+{name: "6th Period", time: new Date(2000, 1, 1, 14, 29, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 15, 13, 0, 0)},
+{name: "7th Period", time: new Date(2000, 1, 1, 15, 16, 0, 0)},
+{name: "School has ended.", time: new Date(2000, 1, 1, 16, 0, 0, 0)}
+];
 function load() {
-  const woodEvents = [
-  {name: "Advisory Starts", time: new Date(2000, 1, 1, 9, 10, 0, 0)}
-  ];
   setTime();
+}
+function getCurrentEvent(events, time) {
+  var found = false;
+  for (var i = 0; i < events.length && !(found); i++) {
+    if (events[i].time.getTime() > time.getTime()) {found = true};
+  }
+  return (i - 2);
 }
 function setTime() {
   var date = new Date();
+  var timeNoDate = new Date();
+  timeNoDate.setFullYear(2000);
+  timeNoDate.setMonth(1);
+  timeNoDate.setDate(1);
+  const timeDifference = new Date(woodPeriods[getCurrentEvent(woodPeriods, timeNoDate) + 1].time - timeNoDate);
   var hour = date.getHours();
   var min = date.getMinutes();
   var sec = date.getSeconds();
   var year = date.getFullYear();
   var month = date.getMonth();
   var day = date.getDate();
+  var ampm;
+  if (hour >= 13) {ampm = "PM"} else {ampm = "AM"}
+  hour = fixHour(hour);
   min = fixTime(min);
   sec = fixTime(sec);
   month = monthName(month);
-  document.getElementById('time').innerHTML =
-  hour + ":" + min + ":" + sec;
-  document.getElementById('date').innerHTML =
-  month + ", " + day + " " + year;
+  document.getElementById('time').innerHTML = hour + ":" + min + ":" + sec + " " + ampm;
+  document.getElementById('date').innerHTML = month + " " + day + ", " + year;
+  document.getElementById('countdown').innerHTML = "Time until " + woodPeriods[getCurrentEvent(woodPeriods, timeNoDate) + 1].name + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
+  document.getElementById('period').innerHTML = woodPeriods[getCurrentEvent(woodPeriods, timeNoDate)].name;
   setTimeout(setTime, 250);
 }
 function fixTime(i) {
   if (i < 10) {i = "0" + i};
   return i;
+}
+function fixHour(i) {
+  if (i >= 13) {i = i - 12}
+  else if (i == 0) {i = 12};
+  return i
 }
 function monthName(i) {
   if (i == 0) {i = "January"};
