@@ -201,11 +201,14 @@ function setTime() {
   var day = date.getDate();
   month = monthName(month);
   document.getElementById('period').innerHTML = selectedEvents[getCurrentEvent(selectedEvents, timeNoDate)].name;
-  if (timeDifference.getHours() > 18) {
-  document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name + " - " + (timeDifference.getHours() - 18) + ":" + fixTime(timeDifference.getMinutes()) + ":" + fixTime(timeDifference.getSeconds());
+  if (timeDifference.getDate() < 31) {
+  document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name.replace("School has ended.", "School Ends") + " - " + (timeDifference.getHours() - 18 + (timeDifference.getDate() * 24)) + ":" + fixTime(timeDifference.getMinutes()) + ":" + fixTime(timeDifference.getSeconds());
+  }
+  else if (timeDifference.getHours() > 18) {
+  document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name.replace("School has ended.", "School Ends") + " - " + (timeDifference.getHours() - 18) + ":" + fixTime(timeDifference.getMinutes()) + ":" + fixTime(timeDifference.getSeconds());
   }
   else {
-  document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
+  document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name.replace("School has ended.", "School Ends") + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
   }
   sec++;
   if (sec == 60) {sec = 0; min++};
@@ -227,9 +230,6 @@ function fixHour(i) {
   if (i >= 13) {i = i - 12}
   else if (i == 0) {i = 12};
   return i
-}
-function addSecond() {
-  
 }
 function monthName(i) {
   if (i == 0) {i = "January"};
