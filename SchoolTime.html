@@ -119,9 +119,9 @@ function setTime() {
   month = monthName(month);
   document.getElementById('time').innerHTML = hour + ":" + min + ":" + sec + " " + ampm;
   document.getElementById('date').innerHTML = month + " " + day + ", " + year;
-  document.getElementById('period').innerHTML = woodPeriods[getCurrentEvent(selectedEvents, timeNoDate)].name;
+  document.getElementById('period').innerHTML = selectedEvents[getCurrentEvent(selectedEvents, timeNoDate)].name;
   if (timeDifference.getHours() > 18) {
-  document.getElementById('countdown').innerHTML = "Time until " + woodPeriods[getCurrentEvent(selectedEvents, timeNoDate) + 1].name + " - " + timeDifference.getHours() - 18 + ":" + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
+  document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name + " - " + timeDifference.getHours() - 18 + ":" + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
   }
   else {
   document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
