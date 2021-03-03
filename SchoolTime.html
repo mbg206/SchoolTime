@@ -50,7 +50,7 @@ button {
 </div>
 <script>
 var selectedEvents;
-const woodPeriods = [
+const woodPeriodsNormal = [
 {name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 9, 0, 0, 0)},
 {name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
@@ -71,6 +71,26 @@ const woodPeriods = [
 {name: "Passing Time", time: new Date(2000, 1, 1, 15, 13, 0, 0)},
 {name: "7th Period", time: new Date(2000, 1, 1, 15, 16, 0, 0)},
 {name: "School has ended.", time: new Date(2000, 1, 1, 16, 0, 0, 0)}
+];
+const woodPeriodsWednesday = [
+{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 0, 0, 0)},
+{name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 40, 0, 0)},
+{name: "1st Period", time: new Date(2000, 1, 1, 9, 43, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 19, 0, 0)},
+{name: "2nd Period", time: new Date(2000, 1, 1, 10, 22, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 58, 0, 0)},
+{name: "3rd Period", time: new Date(2000, 1, 1, 11, 01, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 11, 37, 0, 0)},
+{name: "4th Period", time: new Date(2000, 1, 1, 11, 40, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 13, 0, 0, 0)},
+{name: "5th Period", time: new Date(2000, 1, 1, 13, 03, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 13, 40, 0, 0)},
+{name: "6th Period", time: new Date(2000, 1, 1, 13, 43, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 14, 20, 0, 0)},
+{name: "7th Period", time: new Date(2000, 1, 1, 14, 23, 0, 0)},
+{name: "School has ended.", time: new Date(2000, 1, 1, 15, 0, 0, 0)}
 ];
 const northBlocks = [
 {name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
@@ -111,14 +131,7 @@ function setTime() {
   var year = date.getFullYear();
   var month = date.getMonth();
   var day = date.getDate();
-  var ampm;
-  if (hour >= 13) {ampm = "PM"} else {ampm = "AM"}
-  hour = fixHour(hour);
-  min = fixTime(min);
-  sec = fixTime(sec);
   month = monthName(month);
-  document.getElementById('time').innerHTML = hour + ":" + min + ":" + sec + " " + ampm;
-  document.getElementById('date').innerHTML = month + " " + day + ", " + year;
   document.getElementById('period').innerHTML = selectedEvents[getCurrentEvent(selectedEvents, timeNoDate)].name;
   if (timeDifference.getHours() > 18) {
   document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name + " - " + (timeDifference.getHours() - 18) + ":" + fixTime(timeDifference.getMinutes()) + ":" + fixTime(timeDifference.getSeconds());
@@ -126,6 +139,16 @@ function setTime() {
   else {
   document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
   }
+  sec++;
+  if (sec == 60) {sec = 0; min++};
+  if (min == 60) {min = 0; hour++};
+  var ampm;
+  if (hour >= 13) {ampm = "PM"} else {ampm = "AM"}
+  hour = fixHour(hour);
+  min = fixTime(min);
+  sec = fixTime(sec);
+  document.getElementById('time').innerHTML = hour + ":" + min + ":" + sec + " " + ampm;
+  document.getElementById('date').innerHTML = month + " " + day + ", " + year;
   setTimeout(setTime, 250);
 }
 function fixTime(i) {
@@ -136,6 +159,9 @@ function fixHour(i) {
   if (i >= 13) {i = i - 12}
   else if (i == 0) {i = 12};
   return i
+}
+function addSecond() {
+  
 }
 function monthName(i) {
   if (i == 0) {i = "January"};
@@ -153,7 +179,9 @@ function monthName(i) {
   return i;
 }
 function applySettings(school, mono) {
-  if (school == "wood") {selectedEvents = woodPeriods}
+  var date = new Date();
+  if (school == "wood" && date.getDay() == 3) {selectedEvents = woodPeriodsWednesday;}
+  else if (school == "wood") {selectedEvents = woodPeriodsNormal;}
   else if (school == "north") {selectedEvents = northBlocks};
   if (mono) {
     document.getElementById("time").style.fontFamily = "Roboto Mono, monospace";
@@ -169,6 +197,7 @@ function applySettings(school, mono) {
   }
 }
 function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked);}
+function hideBar() {document.getElementById("bottomBar").style.display = 'none';}
 </script>
 </body>
 </html>
