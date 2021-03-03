@@ -45,6 +45,13 @@ button {
 </select>
 <label for="mono">Use Monospace Font?</label>
 <input type="checkbox" id="mono" name="mono" value="mono">
+<label for="eventType">Schedule:</label>
+<select name="eventType" id="eventType">
+  <option value="normal">Normal</option>
+  <option value="2hrearly">2 Hour Early Out</option>
+  <option value="2hrlate">2 Hour Late Start</option>
+  <option value="paws">PAWS First</option>
+</select>
 <button type="button" onclick="applyButton()">Apply</button>
 <button type="button" onclick="hideBar()">Hide Bar</button>
 </div>
@@ -81,7 +88,7 @@ const woodPeriodsWednesday = [
 {name: "Passing Time", time: new Date(2000, 1, 1, 10, 19, 0, 0)},
 {name: "2nd Period", time: new Date(2000, 1, 1, 10, 22, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 10, 58, 0, 0)},
-{name: "3rd Period", time: new Date(2000, 1, 1, 11, 01, 0, 0)},
+{name: "3rd Period", time: new Date(2000, 1, 1, 11, 1, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 11, 37, 0, 0)},
 {name: "4th Period", time: new Date(2000, 1, 1, 11, 40, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 13, 0, 0, 0)},
@@ -92,7 +99,7 @@ const woodPeriodsWednesday = [
 {name: "7th Period", time: new Date(2000, 1, 1, 14, 23, 0, 0)},
 {name: "School has ended.", time: new Date(2000, 1, 1, 15, 0, 0, 0)}
 ];
-const northBlocks = [
+const northBlocksNormal = [
 {name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
 {name: "Early Bird", time: new Date(2000, 1, 1, 7, 25, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 8, 25, 0, 0)},
@@ -107,8 +114,62 @@ const northBlocks = [
 {name: "Block 4", time: new Date(2000, 1, 1, 14, 5, 0, 0)},
 {name: "School has ended.", time: new Date(2000, 1, 1, 15, 30, 0, 0)}
 ];
+const northBlocksWednesday = [
+{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
+{name: "Early Bird", time: new Date(2000, 1, 1, 7, 25, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 8, 25, 0, 0)},
+{name: "Block 1", time: new Date(2000, 1, 1, 8, 35, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 45, 0, 0)},
+{name: "Block 2", time: new Date(2000, 1, 1, 9, 50, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 11, 0, 0, 0)},
+{name: "Block 3", time: new Date(2000, 1, 1, 11, 05, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 12, 45, 0, 0)},
+{name: "PAWS/Smart Block", time: new Date(2000, 1, 1, 12, 50, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 13, 10, 0, 0)},
+{name: "Block 4", time: new Date(2000, 1, 1, 13, 15, 0, 0)},
+{name: "School has ended.", time: new Date(2000, 1, 1, 14, 30, 0, 0)}
+];
+const northBlocksPaws = [
+{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
+{name: "Early Bird", time: new Date(2000, 1, 1, 7, 25, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 8, 25, 0, 0)},
+{name: "PAWS/Smart Block", time: new Date(2000, 1, 1, 8, 35, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
+{name: "Block 1", time: new Date(2000, 1, 1, 9, 15, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 35, 0, 0)},
+{name: "Block 2", time: new Date(2000, 1, 1, 10, 40, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 12, 0, 0, 0)},
+{name: "Block 3", time: new Date(2000, 1, 1, 12, 5, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 14, 0, 0, 0)},
+{name: "Block 4", time: new Date(2000, 1, 1, 14, 5, 0, 0)},
+{name: "School has ended.", time: new Date(2000, 1, 1, 15, 30, 0, 0)}
+];
+const northBlocks2hrEarly = [
+{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
+{name: "Early Bird", time: new Date(2000, 1, 1, 7, 25, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 8, 25, 0, 0)},
+{name: "Block 1", time: new Date(2000, 1, 1, 8, 35, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 9, 40, 0, 0)},
+{name: "Block 2", time: new Date(2000, 1, 1, 9, 45, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 10, 50, 0, 0)},
+{name: "Block 3", time: new Date(2000, 1, 1, 10, 55, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 11, 55, 0, 0)},
+{name: "Block 4", time: new Date(2000, 1, 1, 12, 0, 0, 0)},
+{name: "School has ended.", time: new Date(2000, 1, 1, 13, 0, 0, 0)}
+];
+const northBlocks2hrLate = [
+{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
+{name: "Block 1", time: new Date(2000, 1, 1, 10, 35, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 11, 35, 0, 0)},
+{name: "Block 3", time: new Date(2000, 1, 1, 11, 40, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 13, 20, 0, 0)},
+{name: "Block 2", time: new Date(2000, 1, 1, 13, 25, 0, 0)},
+{name: "Passing Time", time: new Date(2000, 1, 1, 14, 25, 0, 0)},
+{name: "Block 4", time: new Date(2000, 1, 1, 14, 30, 0, 0)},
+{name: "School has ended.", time: new Date(2000, 1, 1, 15, 30, 0, 0)}
+];
 function load() {
-  applySettings("wood", false);
+  applySettings("wood", false, "normal");
   setTime();
 }
 function getCurrentEvent(events, time) {
@@ -178,11 +239,26 @@ function monthName(i) {
   if (i == 11) {i = "December"};
   return i;
 }
-function applySettings(school, mono) {
+function applySettings(school, mono, eventType) {
   var date = new Date();
-  if (school == "wood" && date.getDay() == 3) {selectedEvents = woodPeriodsWednesday;}
-  else if (school == "wood") {selectedEvents = woodPeriodsNormal;}
-  else if (school == "north") {selectedEvents = northBlocks};
+  if (eventType == "normal") {
+    if (school == "wood" && date.getDay() == 3) {selectedEvents = woodPeriodsWednesday;}
+    else if (school == "wood") {selectedEvents = woodPeriodsNormal;}
+    else if (school == "north" && date.getDay() == 3) {selectedEvents = northBlocksWednesday;}
+    else if (school == "north") {selectedEvents = northBlocksNormal;}
+  };
+  if (eventType == "2hrlate") {
+    if (school == "wood") {selectedEvents = woodPeriodsNormal;}
+    else if (school == "north") {selectedEvents = northBlocks2hrLate;}
+  };
+  if (eventType == "2hrearly") {
+    if (school == "wood") {selectedEvents = woodPeriodsNormal;}
+    else if (school == "north") {selectedEvents = northBlocks2hrEarly;}
+  };
+  if (eventType == "paws") {
+    if (school == "wood") {selectedEvents = woodPeriodsNormal;}
+    else if (school == "north") {selectedEvents = northBlocksPaws;}
+  };
   if (mono) {
     document.getElementById("time").style.fontFamily = "Roboto Mono, monospace";
     document.getElementById("date").style.fontFamily = "Roboto Mono, monospace";
@@ -196,7 +272,7 @@ function applySettings(school, mono) {
     document.getElementById("countdown").style.fontFamily = "Montserrat, sans-serif";
   }
 }
-function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked);}
+function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);}
 function hideBar() {document.getElementById("bottomBar").style.display = 'none';}
 </script>
 </body>
