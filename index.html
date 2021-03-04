@@ -10,6 +10,10 @@ body, select, button {
   text-align: center;
   font-size: 24px;
 }
+body {
+  height: 100vh;
+  overflow: hidden;
+}
 h1, br {font-size:128px;}
 h2 {font-size: 32px;}
 #bottomBar {
@@ -54,7 +58,7 @@ button {
   <option value="paws">PAWS First</option>
 </select>
 <button type="button" onclick="applyButton()">Apply</button>
-<button type="button" onclick="hideBar()">Hide Bar</button>
+<button type="button" onclick="displayMode()">Display Mode</button>
 </div>
 <script>
 var selectedEvents;
@@ -321,7 +325,18 @@ function applySettings(school, mono, eventType) {
   }
 }
 function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);}
-function hideBar() {document.getElementById("bottomBar").style.display = 'none';}
+function displayMode() {
+  document.getElementById("bottomBar").style.display = 'none';
+  document.body.style.cursor = 'none';
+  document.documentElement.requestFullscreen();
+}
+document.addEventListener("keypress", function(e) {
+  if (e.keyCode === 32) {
+    document.getElementById("bottomBar").style.display = 'initial';
+    document.body.style.cursor = 'auto';
+    document.exitFullscreen();
+  }
+}, false);
 </script>
 </body>
 </html>
