@@ -14,7 +14,7 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-h1, br {font-size:128px;}
+h1, #br {font-size:128px;}
 h2 {font-size: 32px;}
 #bottomBar {
   background-color: black;
@@ -25,6 +25,18 @@ h2 {font-size: 32px;}
   width: 100vw;
   text-align: left;
   padding: 8px;
+}
+#sideBar {
+  background-color: rgba(50, 50, 50, 0.5);
+  color: white;
+  font-size: 32px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 460px;
+  text-align: left;
+  padding: 16px;
+  display: none;
 }
 input {
   width: 24px;
@@ -37,11 +49,12 @@ button {
 </style>
 </head>
 <body onload="load()">
-<br>
+<br id="br">
 <h1 id="time">Loading...</h1>
 <h2 id="date">Loading...</h2>
 <h2 id="period">Loading...</h2>
 <h2 id="countdown">Loading...</h2>
+<div id="sideBar"></div>
 <div id="bottomBar">
 <label for="school">School:</label>
 <select name="school" id="school">
@@ -58,6 +71,7 @@ button {
   <option value="paws">PAWS First</option>
 </select>
 <button type="button" onclick="applyButton()">Apply</button>
+<button type="button" onclick="getSchedule()">Schedule</button>
 <button type="button" onclick="displayMode()">Display Mode</button>
 </div>
 <script>
@@ -318,7 +332,7 @@ function applySettings(school, mono, eventType) {
     document.getElementById("countdown").style.fontFamily = "Roboto Mono, monospace";
   }
   else {
-    document.getElementById("time").style.fontFamily = "Montserrat, sans-serif";
+     document.getElementById("time").style.fontFamily = "Montserrat, sans-serif";
     document.getElementById("date").style.fontFamily = "Montserrat, sans-serif";
     document.getElementById("period").style.fontFamily = "Montserrat, sans-serif";
     document.getElementById("countdown").style.fontFamily = "Montserrat, sans-serif";
@@ -330,9 +344,36 @@ function displayMode() {
   document.body.style.cursor = 'none';
   document.documentElement.requestFullscreen();
 }
+function getSchedule() {
+  var e = document.getElementById("sideBar");
+  if (window.getComputedStyle(e).getPropertyValue('display') == 'none') {
+    e.style.display = 'inline';
+  }
+  else {
+    e.style.display = 'none';
+  }
+  document.getElementById("bottomBar").style.display = 'initial'
+  e.textContent = '';
+  if (selectedEvents.length % 2 == 1) {
+    for (var i = 0; i < selectedEvents.length - 4; i = i + 2) {
+      var t = document.createTextNode(selectedEvents[i + 2].name + ": " + fixHour(selectedEvents[i + 2].time.getHours()) + ":" + fixTime(selectedEvents[i + 2].time.getMinutes()) + "-" + fixHour(selectedEvents[i + 3].time.getHours()) + ":" + fixTime(selectedEvents[i + 3].time.getMinutes()));
+      var br = document.createElement("br");
+      e.appendChild(t);
+      e.appendChild(br);
+    }
+  }
+  else {
+    for (var i = 0; i < selectedEvents.length - 2; i = i + 2) {
+      var t = document.createTextNode(selectedEvents[i + 1].name + ": " + fixHour(selectedEvents[i + 1].time.getHours()) + ":" + fixTime(selectedEvents[i + 1].time.getMinutes()) + "-" + fixHour(selectedEvents[i + 2].time.getHours()) + ":" + fixTime(selectedEvents[i + 2].time.getMinutes()));
+      var br = document.createElement("br");
+      e.appendChild(t);
+      e.appendChild(br);
+    }
+  }
+}
 document.addEventListener("keypress", function(e) {
   if (e.keyCode === 32) {
-    document.getElementById("bottomBar").style.display = 'initial';
+    document.getElementById("bottomBar").style.display = 'inline';
     document.body.style.cursor = 'auto';
     document.exitFullscreen();
   }
