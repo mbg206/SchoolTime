@@ -237,6 +237,19 @@ const northBlocks2hrLate = [
 function load() {
   applySettings("wood", false, "normal");
   setTime();
+  alert(findCookieValue(" school"));
+}
+function findCookieValue(label) {
+  var cookies = document.cookie.split(';').join(',').split('=');
+  alert(cookies);
+  /*
+  for (var i = 0; i < cookies.length - 1; i++) {
+    if (cookies[i] == label) {
+      return cookies[i + 1];
+      break;
+    }
+  }
+  */
 }
 function getCurrentEvent(events, time) {
   var found = false;
@@ -273,7 +286,7 @@ function setTime() {
   if (sec == 60) {sec = 0; min++};
   if (min == 60) {min = 0; hour++};
   var ampm;
-  if (hour >= 13) {ampm = "PM"} else {ampm = "AM"}
+  if (hour >= 12) {ampm = "PM"} else {ampm = "AM"}
   hour = fixHour(hour);
   min = fixTime(min);
   sec = fixTime(sec);
@@ -356,7 +369,10 @@ function applySettings(school, mono, eventType) {
     }
   }
 }
-function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);}
+function applyButton() {
+  applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);
+  document.cookie = "school = " + document.getElementById("school").value + "; mono = " + document.getElementById("mono").checked;
+}
 function displayMode() {
   document.getElementById("bottomBar").style.display = 'none';
   document.body.style.cursor = 'none';
