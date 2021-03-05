@@ -83,7 +83,7 @@ const woodPeriodsNormal = [
 {name: "Passing Time", time: new Date(2000, 1, 1, 9, 25, 0, 0)},
 {name: "1st Period", time: new Date(2000, 1, 1, 9, 28, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 10, 12, 0, 0)},
-{name: "2nd Period", time: new Date(2000, 1, 1, 10, 14, 0, 0)},
+{name: "2nd Period", time: new Date(2000, 1, 1, 10, 15, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 10, 57, 0, 0)},
 {name: "Verkstad", time: new Date(2000, 1, 1, 11, 0, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 11, 30, 0, 0)},
@@ -336,23 +336,8 @@ function applySettings(school, mono, eventType) {
     document.getElementById("date").style.fontFamily = "Montserrat, sans-serif";
     document.getElementById("period").style.fontFamily = "Montserrat, sans-serif";
     document.getElementById("countdown").style.fontFamily = "Montserrat, sans-serif";
-  }
-}
-function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);}
-function displayMode() {
-  document.getElementById("bottomBar").style.display = 'none';
-  document.body.style.cursor = 'none';
-  document.documentElement.requestFullscreen();
-}
-function getSchedule() {
+  };
   var e = document.getElementById("sideBar");
-  if (window.getComputedStyle(e).getPropertyValue('display') == 'none') {
-    e.style.display = 'inline';
-  }
-  else {
-    e.style.display = 'none';
-  }
-  document.getElementById("bottomBar").style.display = 'initial'
   e.textContent = '';
   if (selectedEvents.length % 2 == 1) {
     for (var i = 0; i < selectedEvents.length - 4; i = i + 2) {
@@ -370,6 +355,22 @@ function getSchedule() {
       e.appendChild(br);
     }
   }
+}
+function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);}
+function displayMode() {
+  document.getElementById("bottomBar").style.display = 'none';
+  document.body.style.cursor = 'none';
+  document.documentElement.requestFullscreen();
+}
+function getSchedule() {
+  var e = document.getElementById("sideBar");
+  if (window.getComputedStyle(e).getPropertyValue('display') == 'none') {
+    e.style.display = 'inline';
+  }
+  else {
+    e.style.display = 'none';
+  }
+  document.getElementById("bottomBar").style.display = 'initial'
 }
 document.addEventListener("keypress", function(e) {
   if (e.keyCode === 32) {
