@@ -235,21 +235,10 @@ const northBlocks2hrLate = [
 {name: "New Day", time: new Date(2000, 1, 1, 24, 0, 0, 0)}
 ];
 function load() {
-  applySettings("wood", false, "normal");
+  var cookies = document.cookie.split('=');
+  applySettings(cookies[1], false, "normal");
   setTime();
   alert(findCookieValue(" school"));
-}
-function findCookieValue(label) {
-  var cookies = document.cookie.split(';').join(',').split('=');
-  alert(cookies);
-  /*
-  for (var i = 0; i < cookies.length - 1; i++) {
-    if (cookies[i] == label) {
-      return cookies[i + 1];
-      break;
-    }
-  }
-  */
 }
 function getCurrentEvent(events, time) {
   var found = false;
@@ -371,7 +360,7 @@ function applySettings(school, mono, eventType) {
 }
 function applyButton() {
   applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);
-  document.cookie = "school = " + document.getElementById("school").value + "; mono = " + document.getElementById("mono").checked;
+  document.cookie = "school = " + document.getElementById("school").value;
 }
 function displayMode() {
   document.getElementById("bottomBar").style.display = 'none';
