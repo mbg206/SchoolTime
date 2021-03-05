@@ -273,7 +273,7 @@ function setTime() {
   if (sec == 60) {sec = 0; min++};
   if (min == 60) {min = 0; hour++};
   var ampm;
-  if (hour >= 13) {ampm = "PM"} else {ampm = "AM"}
+  if (hour >= 12) {ampm = "PM"} else {ampm = "AM"}
   hour = fixHour(hour);
   min = fixTime(min);
   sec = fixTime(sec);
