@@ -373,11 +373,9 @@ function getSchedule() {
   document.getElementById("bottomBar").style.display = 'initial'
 }
 document.addEventListener("keypress", function(e) {
-  if (e.keyCode === 32) {
-    document.getElementById("bottomBar").style.display = 'inline';
-    document.body.style.cursor = 'auto';
-    document.exitFullscreen();
-  }
+  document.getElementById("bottomBar").style.display = 'inline';
+  document.body.style.cursor = 'auto';
+  document.exitFullscreen();
 }, false);
 </script>
 </body>
