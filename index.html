@@ -76,7 +76,7 @@ button {
 <button type="button" onclick="displayMode()">Display Mode</button>
 </div>
 <script>
-var selectedEvents;
+var selectedEvents, wakeLock;
 const woodPeriodsNormal = [
 {name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 9, 6, 0, 0)},
@@ -238,6 +238,7 @@ const northBlocks2hrLate = [
 function load() {
   applySettings("wood", false, "normal");
   setTime();
+  wakeLock();
 }
 function getCurrentEvent(events, time) {
   var found = false;
@@ -378,6 +379,22 @@ document.addEventListener("keypress", function(e) {
   document.body.style.cursor = 'auto';
   document.exitFullscreen();
 }, false);
+async function wakeLock() {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+  } catch (err) {
+    console.log(`${err.name}, ${err.message}`);
+  }
+}
+document.addEventListener('visibilitychange', async () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+    } catch (err) {
+      console.log(`${err.name}, ${err.message}`);
+    }
+  }
+});
 </script>
 </body>
 </html>
