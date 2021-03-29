@@ -51,10 +51,8 @@ h2 {font-size: 32px;}
   padding: 16px;
   display: none;
 }
-input {
-  width: 24px;
-  height: 24px;
-}
+input {height: 24px;}
+#mono {width: 24px;}
 button {
   float: right;
   margin-right: 16px;
@@ -69,7 +67,9 @@ button {
 <h2 id="countdown">Loading...</h2>
 <div id="settingsBar">
   <label for="mono">Use Monospace Font?</label>
-  <input type="checkbox" id="mono" name="mono" value="mono">
+  <input type="checkbox" id="mono" name="mono">
+  <label for="timeDelay">Delay between updates (in ms):</label>
+  <input type="number" id="timeDelay" name="timeDelay" value="250">
 </div>
 <div id="sideBar"></div>
 <div id="bottomBar">
@@ -92,6 +92,7 @@ button {
 </div>
 <script>
 var selectedEvents, wakeLock;
+var timeDelay = 250;
 const woodPeriodsNormal = [
 {name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 9, 6, 0, 0)},
@@ -296,7 +297,7 @@ function setTime() {
   sec = fixTime(sec);
   document.getElementById('time').innerHTML = hour + ":" + min + ":" + sec + " " + ampm;
   document.getElementById('date').innerHTML = month + " " + day + ", " + year;
-  setTimeout(setTime, 250);
+  setTimeout(setTime, timeDelay);
 }
 function fixTime(i) {
   if (i < 10) {i = "0" + i};
@@ -322,7 +323,8 @@ function monthName(i) {
   if (i == 11) {i = "December"};
   return i;
 }
-function applySettings(school, mono, eventType) {
+function applySettings(school, mono, eventType, delay) {
+  timeDelay = delay;
   var date = new Date();
   if (eventType == "normal") {
     if (school == "wood" && date.getDay() == 3) {selectedEvents = woodPeriodsWednesday;}
@@ -373,7 +375,7 @@ function applySettings(school, mono, eventType) {
     }
   }
 }
-function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value);}
+function applyButton() {applySettings(document.getElementById("school").value, document.getElementById("mono").checked, document.getElementById("eventType").value, document.getElementById("timeDelay").value);}
 function displayMode() {
   document.getElementById("bottomBar").style.display = 'none';
   document.body.style.cursor = 'none';
