@@ -39,6 +39,18 @@ h2 {font-size: 32px;}
   padding: 16px;
   display: none;
 }
+#settingsBar {
+  background-color: rgba(50, 50, 50, 0.5);
+  color: white;
+  font-size: 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 460px;
+  text-align: left;
+  padding: 16px;
+  display: none;
+}
 input {
   width: 24px;
   height: 24px;
@@ -55,6 +67,10 @@ button {
 <h2 id="date">Loading...</h2>
 <h2 id="period">Loading...</h2>
 <h2 id="countdown">Loading...</h2>
+<div id="settingsBar">
+  <label for="mono">Use Monospace Font?</label>
+  <input type="checkbox" id="mono" name="mono" value="mono">
+</div>
 <div id="sideBar"></div>
 <div id="bottomBar">
 <label for="school">School:</label>
@@ -62,8 +78,6 @@ button {
   <option value="wood">Wood Intermediate</option>
   <option value="north">North High</option>
 </select>
-<label for="mono">Use Monospace Font?</label>
-<input type="checkbox" id="mono" name="mono" value="mono">
 <label for="eventType">Schedule:</label>
 <select name="eventType" id="eventType">
   <option value="normal">Normal</option>
@@ -74,6 +88,7 @@ button {
 <button type="button" onclick="applyButton()">Apply</button>
 <button type="button" onclick="getSchedule()">Schedule</button>
 <button type="button" onclick="displayMode()">Display Mode</button>
+<button type="button" onclick="settingsMenu()">More Settings</button>
 </div>
 <script>
 var selectedEvents, wakeLock;
@@ -372,7 +387,15 @@ function getSchedule() {
   else {
     e.style.display = 'none';
   }
-  document.getElementById("bottomBar").style.display = 'initial'
+}
+function settingsMenu() {
+  var e = document.getElementById("settingsBar");
+  if (window.getComputedStyle(e).getPropertyValue('display') == 'none') {
+    e.style.display = 'inline';
+  }
+  else {
+    e.style.display = 'none';
+  }
 }
 document.addEventListener("keypress", function(e) {
   document.getElementById("bottomBar").style.display = 'inline';
