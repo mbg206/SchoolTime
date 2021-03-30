@@ -259,7 +259,7 @@ function load() {
 function getCurrentEvent(events, time) {
   var found = false;
   for (var i = 0; i < events.length && !(found); i++) {
-    if (events[i].time.getTime() > time.getTime()) {found = true};
+    if (events[i].time.getTime() > time.getTime()) {found = true;}
   }
   return (i - 2);
 }
@@ -288,10 +288,10 @@ function setTime() {
   document.getElementById('countdown').innerHTML = "Time until " + selectedEvents[getCurrentEvent(selectedEvents, timeNoDate) + 1].name.replace("School has ended.", "School Ends") + " - " + timeDifference.getMinutes() + ":" + fixTime(timeDifference.getSeconds());
   }
   sec++;
-  if (sec == 60) {sec = 0; min++};
-  if (min == 60) {min = 0; hour++};
+  if (sec == 60) {sec = 0; min++;}
+  if (min == 60) {min = 0; hour++;}
   var ampm;
-  if (hour >= 12) {ampm = "PM"} else {ampm = "AM"}
+  if (hour >= 12) {ampm = "PM";} else {ampm = "AM";}
   hour = fixHour(hour);
   min = fixTime(min);
   sec = fixTime(sec);
@@ -300,27 +300,27 @@ function setTime() {
   setTimeout(setTime, timeDelay);
 }
 function fixTime(i) {
-  if (i < 10) {i = "0" + i};
+  if (i < 10) {i = "0" + i;}
   return i;
 }
 function fixHour(i) {
-  if (i >= 13) {i = i - 12}
-  else if (i == 0) {i = 12};
-  return i
+  if (i >= 13) {i = i - 12;}
+  else if (i == 0) {i = 12;}
+  return i;
 }
 function monthName(i) {
-  if (i == 0) {i = "January"};
-  if (i == 1) {i = "February"};
-  if (i == 2) {i = "March"};
-  if (i == 3) {i = "April"};
-  if (i == 4) {i = "May"};
-  if (i == 5) {i = "June"};
-  if (i == 6) {i = "July"};
-  if (i == 7) {i = "August"};
-  if (i == 8) {i = "September"};
-  if (i == 9) {i = "October"};
-  if (i == 10) {i = "November"};
-  if (i == 11) {i = "December"};
+  if (i == 0) {i = "January";}
+  if (i == 1) {i = "February";}
+  if (i == 2) {i = "March";}
+  if (i == 3) {i = "April";}
+  if (i == 4) {i = "May";}
+  if (i == 5) {i = "June";}
+  if (i == 6) {i = "July";}
+  if (i == 7) {i = "August";}
+  if (i == 8) {i = "September";}
+  if (i == 9) {i = "October";}
+  if (i == 10) {i = "November";}
+  if (i == 11) {i = "December";}
   return i;
 }
 function applySettings(school, mono, eventType, delay) {
@@ -331,19 +331,19 @@ function applySettings(school, mono, eventType, delay) {
     else if (school == "wood") {selectedEvents = woodPeriodsNormal;}
     else if (school == "north" && date.getDay() == 3) {selectedEvents = northBlocksWednesday;}
     else if (school == "north") {selectedEvents = northBlocksNormal;}
-  };
+  }
   if (eventType == "2hrlate") {
     if (school == "wood") {selectedEvents = woodPeriods2hrLate;}
     else if (school == "north") {selectedEvents = northBlocks2hrLate;}
-  };
+  }
   if (eventType == "2hrearly") {
     if (school == "wood") {selectedEvents = woodPeriods2hrEarly;}
     else if (school == "north") {selectedEvents = northBlocks2hrEarly;}
-  };
+  }
   if (eventType == "paws") {
     if (school == "wood") {selectedEvents = woodPeriodsNormal;}
     else if (school == "north") {selectedEvents = northBlocksPaws;}
-  };
+  }
   if (mono) {
     document.getElementById("time").style.fontFamily = "Roboto Mono, monospace";
     document.getElementById("date").style.fontFamily = "Roboto Mono, monospace";
@@ -355,7 +355,7 @@ function applySettings(school, mono, eventType, delay) {
     document.getElementById("date").style.fontFamily = "Montserrat, sans-serif";
     document.getElementById("period").style.fontFamily = "Montserrat, sans-serif";
     document.getElementById("countdown").style.fontFamily = "Montserrat, sans-serif";
-  };
+  }
   var e = document.getElementById("sideBar");
   e.textContent = '';
   if (selectedEvents.length % 2 == 1) {
