@@ -69,7 +69,8 @@ button {
   <label for="mono">Use Monospace Font?</label>
   <input type="checkbox" id="mono" name="mono">
   <label for="timeDelay">Delay between updates (in ms):</label>
-  <input type="number" id="timeDelay" name="timeDelay" value="250">
+  <input type="number" id="timeDelay" name="timeDelay" value="250"><br>
+  <button type="button" onclick="editor()">Editor Mode</button>
 </div>
 <div id="sideBar"></div>
 <div id="bottomBar">
@@ -91,8 +92,7 @@ button {
 <button type="button" onclick="settingsMenu()">More Settings</button>
 </div>
 <script>
-var selectedEvents, wakeLock;
-var timeDelay = 250;
+var selectedEvents, wakeLock, timeDelay;
 const woodPeriodsNormal = [
 {name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
 {name: "Passing Time", time: new Date(2000, 1, 1, 9, 6, 0, 0)},
@@ -252,7 +252,7 @@ const northBlocks2hrLate = [
 {name: "New Day", time: new Date(2000, 1, 1, 24, 0, 0, 0)}
 ];
 function load() {
-  applySettings("wood", false, "normal");
+  applySettings("wood", false, "normal", 250);
   setTime();
   wakeLock();
 }
@@ -398,6 +398,11 @@ function settingsMenu() {
   else {
     e.style.display = 'none';
   }
+}
+function editor() {
+  settingsMenu();
+  document.body.style.overflow = 'visible';
+  document.getElementById("bottomBar").id = "";
 }
 document.addEventListener("keypress", function(e) {
   document.getElementById("bottomBar").style.display = 'inline';
