@@ -53,13 +53,36 @@ h2 {font-size: 32px;}
 }
 input {height: 24px;}
 #mono {width: 24px;}
-button {
+#bottomButton {
   float: right;
   margin-right: 16px;
+}
+#alert {
+  position: absolute;
+  magin: auto;
+  padding: 16px;
+  left: 0;
+  right: 0;
+  font-size: 32px;
+  border-style: solid;
+  visibility: hidden;
+  background-color: white;
+}
+#alertHeader {
+  font-weight: bold;
+  font-size: 48px;
+}
+#okButton {
+  right: 50%;
 }
 </style>
 </head>
 <body onload="load()">
+<div id="alert">
+<span id="alertHeader">Info</span><br>
+<span id="alertContent"></span><br>
+<button type="button" id="okButton" onclick="inforead()">Ok</button>
+</div>
 <br id="br">
 <h1 id="time">Loading...</h1>
 <h2 id="date">Loading...</h2>
@@ -90,10 +113,10 @@ button {
   <option value="isaspWed">ISASP Wednesday</option>
   <option value="isaspThu">ISASP Thursday</option>
 </select>
-<button type="button" onclick="applyButton()">Apply</button>
-<button type="button" onclick="getSchedule()">Schedule</button>
-<button type="button" onclick="displayMode()">Display Mode</button>
-<button type="button" onclick="settingsMenu()">More Settings</button>
+<button type="button" id="bottomButton" onclick="applyButton()">Apply</button>
+<button type="button" id="bottomButton" onclick="getSchedule()">Schedule</button>
+<button type="button" id="bottomButton" onclick="displayMode()">Display Mode</button>
+<button type="button" id="bottomButton" onclick="settingsMenu()">More Settings</button>
 </div>
 <script>
 var selectedEvents, wakeLock, timeDelay;
@@ -348,6 +371,7 @@ function load() {
   applySettings("wood", false, "normal", 250);
   setTime();
   wakeLock();
+  alertBox("You will need to manually set the schedule to ISASP testing this week (under the schedule tab on the bottom)");
 }
 function getCurrentEvent(events, time) {
   var found = false;
@@ -516,6 +540,11 @@ function editor() {
   document.body.style.overflow = 'visible';
   document.getElementById("bottomBar").id = "";
 }
+function alertBox(text) {
+  document.getElementById("alert").style.visibility = 'visible';
+  document.getElementById("alertContent").innerHTML = text;
+}
+function inforead() {document.getElementById("alert").style.visibility = 'hidden'}
 document.addEventListener("keypress", function(e) {
   document.getElementById("bottomBar").style.display = 'inline';
   document.body.style.cursor = 'auto';
