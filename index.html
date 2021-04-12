@@ -108,10 +108,6 @@ input {height: 24px;}
   <option value="2hrearly">2 Hour Early Out</option>
   <option value="2hrlate">2 Hour Late Start</option>
   <option value="paws">Smart Block First</option>
-  <option value="isaspMon">ISASP Monday</option>
-  <option value="isaspTue">ISASP Tuesday</option>
-  <option value="isaspWed">ISASP Wednesday</option>
-  <option value="isaspThu">ISASP Thursday</option>
 </select>
 <button type="button" id="bottomButton" onclick="applyButton()">Apply</button>
 <button type="button" id="bottomButton" onclick="getSchedule()">Schedule</button>
@@ -120,91 +116,7 @@ input {height: 24px;}
 </div>
 <script>
 var selectedEvents, wakeLock, timeDelay;
-/* ISASP ONLY - DELETE START */
 
-const woodPeriodsISASPa = [
-{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 9, 6, 0, 0)},
-{name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 9, 30, 0, 0)},
-{name: "ISASP Testing", time: new Date(2000, 1, 1, 9, 33, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 10, 58, 0, 0)},
-{name: "1st Period", time: new Date(2000, 1, 1, 11, 1, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 11, 34, 0, 0)},
-{name: "3rd Period", time: new Date(2000, 1, 1, 11, 37, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 12, 10, 0, 0)},
-{name: "4th Period", time: new Date(2000, 1, 1, 12, 19, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 13, 39, 0, 0)},
-{name: "2nd Period", time: new Date(2000, 1, 1, 13, 42, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 14, 14, 0, 0)},
-{name: "5th Period", time: new Date(2000, 1, 1, 14, 17, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 14, 49, 0, 0)},
-{name: "6th Period", time: new Date(2000, 1, 1, 14, 52, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 15, 24, 0, 0)},
-{name: "7th Period", time: new Date(2000, 1, 1, 15, 27, 0, 0)},
-{name: "School has ended.", time: new Date(2000, 1, 1, 16, 0, 0, 0)},
-{name: "New Day", time: new Date(2000, 1, 1, 24, 0, 0, 0)}
-];
-const woodPeriodsISASPb = [
-{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 9, 6, 0, 0)},
-{name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 9, 30, 0, 0)},
-{name: "ISASP Testing", time: new Date(2000, 1, 1, 9, 33, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 10, 58, 0, 0)},
-{name: "1st Period", time: new Date(2000, 1, 1, 11, 1, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 11, 19, 0, 0)},
-{name: "2nd Period", time: new Date(2000, 1, 1, 11, 21, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 11, 37, 0, 0)},
-{name: "4th Period", time: new Date(2000, 1, 1, 11, 40, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 13, 0, 0, 0)},
-{name: "3rd Period", time: new Date(2000, 1, 1, 13, 3, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 13, 30, 0, 0)},
-{name: "5th Period", time: new Date(2000, 1, 1, 13, 33, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 14, 0, 0, 0)},
-{name: "6th Period", time: new Date(2000, 1, 1, 14, 3, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 14, 30, 0, 0)},
-{name: "7th Period", time: new Date(2000, 1, 1, 14, 33, 0, 0)},
-{name: "School has ended.", time: new Date(2000, 1, 1, 15, 0, 0, 0)},
-{name: "New Day", time: new Date(2000, 1, 1, 24, 0, 0, 0)}
-];
-const woodPeriodsISASPc = [
-{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 9, 6, 0, 0)},
-{name: "Advisory", time: new Date(2000, 1, 1, 9, 10, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 9, 30, 0, 0)},
-{name: "ISASP Testing", time: new Date(2000, 1, 1, 9, 33, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 11, 45, 0, 0)},
-{name: "1st Period", time: new Date(2000, 1, 1, 11, 48, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 12, 16, 0, 0)},
-{name: "4th Period", time: new Date(2000, 1, 1, 12, 19, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 13, 39, 0, 0)},
-{name: "2nd Period", time: new Date(2000, 1, 1, 13, 42, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 14, 7, 0, 0)},
-{name: "5th Period", time: new Date(2000, 1, 1, 14, 10, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 14, 35, 0, 0)},
-{name: "6th Period", time: new Date(2000, 1, 1, 14, 38, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 15, 3, 0, 0)},
-{name: "7th Period", time: new Date(2000, 1, 1, 15, 6, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 15, 31, 0, 0)},
-{name: "3rd Period", time: new Date(2000, 1, 1, 15, 33, 0, 0)},
-{name: "School has ended.", time: new Date(2000, 1, 1, 16, 0, 0, 0)},
-{name: "New Day", time: new Date(2000, 1, 1, 24, 0, 0, 0)}
-];
-const northBlocksISASPa = [
-{name: "School hasn't started yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
-{name: "Early Bird", time: new Date(2000, 1, 1, 7, 25, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 8, 25, 0, 0)},
-{name: "ISASP Testing", time: new Date(2000, 1, 1, 8, 35, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 11, 5, 0, 0)},
-{name: "Block 1", time: new Date(2000, 1, 1, 11, 15, 0, 0)},
-{name: "Passing Time", time: new Date(2000, 1, 1, 13, 30, 0, 0)},
-{name: "Block 2", time: new Date(2000, 1, 1, 13, 35, 0, 0)},
-{name: "School has ended.", time: new Date(2000, 1, 1, 15, 30, 0, 0)},
-{name: "New Day", time: new Date(2000, 1, 1, 24, 0, 0, 0)}
-];
-
-/* DELETE END*/
 const unavailableEvents = [
 {name: "These events haven't been added yet.", time: new Date(2000, 1, 1, 0, 0, 0, 0)},
 {name: "New Day", time: new Date(2000, 1, 1, 24, 0, 0, 0)}
@@ -371,7 +283,7 @@ function load() {
   applySettings("wood", false, "normal", 250);
   setTime();
   wakeLock();
-  alertBox("You will need to manually set the schedule to ISASP testing this week (under the schedule tab on the bottom)");
+  // alertBox("");
 }
 function getCurrentEvent(events, time) {
   var found = false;
@@ -442,26 +354,6 @@ function monthName(i) {
 function applySettings(school, mono, eventType, delay) {
   timeDelay = delay;
   var date = new Date();
-  /* DELETE START */
-  
-  if (eventType == "isaspMon") {
-    if (school == "wood") {selectedEvents = woodPeriodsISASPa;}
-    else if (school == "north") {selectedEvents = northBlocksISASPa;}
-  }
-  if (eventType == "isaspTue") {
-    if (school == "wood") {selectedEvents = woodPeriodsISASPa;}
-    else if (school == "north") {selectedEvents = unavailableEvents;}
-  }
-  if (eventType == "isaspWed") {
-    if (school == "wood") {selectedEvents = woodPeriodsISASPb;}
-    else if (school == "north") {selectedEvents = unavailableEvents;}
-  }
-  if (eventType == "isaspThu") {
-    if (school == "wood") {selectedEvents = woodPeriodsISASPc;}
-    else if (school == "north") {selectedEvents = unavailableEvents;}
-  }
-  
-  /* DELETE END */
   if (eventType == "normal") {
     if (school == "wood" && date.getDay() == 3) {selectedEvents = woodPeriodsWednesday;}
     else if (school == "wood") {selectedEvents = woodPeriodsNormal;}
