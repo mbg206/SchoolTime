@@ -294,6 +294,10 @@ function getCurrentEvent(events, time) {
 }
 function setTime() {
   var date = new Date();
+  if (selectedEvents == woodPeriodsNormal && date.getDay() == 3) {selectedEvents == woodPeriodsWednesday;}
+  else if (selectedEvents == woodPeriodsWednesday && date.getDay() != 3) {selectedEvents == woodPeriodsNormal;}
+  else if (selectedEvents == northBlocksNormal && date.getDay() == 3) {selectedEvents == northBlocksWednesday;}
+  else if (selectedEvents == northBlocksWednesday && date.getDay() != 3) {selectedEvents == northBlocksNormal;}
   var timeNoDate = new Date();
   timeNoDate.setFullYear(2000);
   timeNoDate.setMonth(1, 1);
